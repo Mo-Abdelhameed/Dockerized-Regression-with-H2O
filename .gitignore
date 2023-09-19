@@ -5,3 +5,4 @@ src/test.py
 model_inputs_outputs/model/
 logs.log
 configs
+.coverage*
