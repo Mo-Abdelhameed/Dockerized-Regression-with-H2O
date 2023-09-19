@@ -72,7 +72,7 @@ class Regressor:
         x.remove(schema.target)
         self.x = x
         self.y = schema.target
-        self.aml = H2OAutoML(max_models=5, seed=10, nfolds=10, verbosity='info')
+        self.aml = H2OAutoML(max_models=5, seed=10, nfolds=10, verbosity='info', exclude_algos=['GLM'])
         self.model_name = "h2o_regressor_model"
 
     def train(self) -> None:

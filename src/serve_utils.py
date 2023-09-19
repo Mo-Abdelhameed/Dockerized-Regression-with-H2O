@@ -95,7 +95,6 @@ async def transform_req_data_and_make_predictions(
     validate_data(data=data, data_schema=model_resources.data_schema, is_train=False)
     data = h2o.H2OFrame(data)
     ids = data[model_resources.data_schema.id]
-
     logger.info("Making predictions...")
     predictions_df = predict_with_model(
         model_resources.predictor_model,

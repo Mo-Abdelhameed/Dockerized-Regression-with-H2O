@@ -24,10 +24,8 @@ def test_init():
         "title": "Test Title",
         "description": "Test description",
         "schemaVersion": 1.0,
-        "inputDataFormat": {
-            "type": "CSV",
-            "encoding": "utf-8",
-        },
+        "inputDataFormat": "CSV",
+        "encoding": "utf-8",
         "id": {"name": "Test ID"},
         "target": {"name": "Test Target", "example": 3},
         "features": [{"name": "Test feature", "dataType": "NUMERIC", "nullable": True}],

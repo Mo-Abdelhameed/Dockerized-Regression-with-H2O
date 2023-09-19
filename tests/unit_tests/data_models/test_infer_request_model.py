@@ -16,7 +16,8 @@ def schema_dict():
         "description": "test dataset",
         "modelCategory": "regression",
         "schemaVersion": 1.0,
-        "inputDataFormat": {"type": "CSV", "encoding": "utf-8"},
+        "inputDataFormat": "CSV",
+        "encoding": "utf-8",
         "id": {"name": "id", "description": "unique identifier."},
         "target": {
             "name": "target_field",

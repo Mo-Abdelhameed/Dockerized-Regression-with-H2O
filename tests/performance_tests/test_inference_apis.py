@@ -1,6 +1,7 @@
 import os
 from time import perf_counter
 
+import h2o
 import pytest
 
 from tests.performance_tests.performance_test_helpers import (

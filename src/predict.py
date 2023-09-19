@@ -5,7 +5,6 @@ from logger import get_logger
 from Regressor import Regressor, predict_with_model
 from schema.data_schema import load_saved_schema
 from utils import read_csv_in_directory, save_dataframe_as_csv
-from schema.data_schema import RegressionSchema
 
 logger = get_logger(task_name="predict")
 
@@ -49,7 +48,6 @@ def run_batch_predictions(
     h2o.init()
     x_test = read_csv_in_directory(test_dir)
     data_schema = load_saved_schema(saved_schema_dir)
-
     x_test = h2o.H2OFrame(x_test)
     ids = x_test[data_schema.id]
 
