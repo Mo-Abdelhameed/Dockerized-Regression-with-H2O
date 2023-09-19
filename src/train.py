@@ -1,6 +1,7 @@
 import os
 
 import h2o
+
 from config import paths
 from logger import get_logger, log_error
 from Regressor import Regressor

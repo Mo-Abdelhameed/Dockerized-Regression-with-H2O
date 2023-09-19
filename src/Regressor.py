@@ -2,11 +2,13 @@ import os
 import re
 import warnings
 from typing import List
+
 import h2o
-from h2o.model import ModelBase
-from h2o.automl import H2OAutoML
 import pandas as pd
+from h2o.automl import H2OAutoML
+from h2o.model import ModelBase
 from sklearn.exceptions import NotFittedError
+
 from schema.data_schema import RegressionSchema
 
 warnings.filterwarnings("ignore")
@@ -72,7 +74,9 @@ class Regressor:
         x.remove(schema.target)
         self.x = x
         self.y = schema.target
-        self.aml = H2OAutoML(max_models=5, seed=10, nfolds=10, verbosity='info', exclude_algos=['GLM'])
+        self.aml = H2OAutoML(
+            max_models=5, seed=10, nfolds=10, verbosity="info", exclude_algos=["GLM"]
+        )
         self.model_name = "h2o_regressor_model"
 
     def train(self) -> None:
@@ -98,7 +102,12 @@ class Regressor:
 
         if not self._is_trained:
             raise NotFittedError("Model is not fitted yet.")
-        h2o.save_model(self.aml.leader, path=model_dir_path, filename=PREDICTOR_FILE_NAME, force=True)
+        h2o.save_model(
+            self.aml.leader,
+            path=model_dir_path,
+            filename=PREDICTOR_FILE_NAME,
+            force=True,
+        )
 
     @classmethod
     def load(cls, model_dir_path: str) -> ModelBase:

@@ -1,5 +1,6 @@
 import h2o
 import pandas as pd
+
 from config import paths
 from logger import get_logger
 from Regressor import Regressor, predict_with_model
@@ -10,8 +11,8 @@ logger = get_logger(task_name="predict")
 
 
 def create_predictions_dataframe(
-        predictions_df: h2o.H2OFrame,
-        ids: h2o.H2OFrame,
+    predictions_df: h2o.H2OFrame,
+    ids: h2o.H2OFrame,
 ) -> pd.DataFrame:
     """
     Converts the predictions numpy array into a dataframe having the required structure.
@@ -25,15 +26,15 @@ def create_predictions_dataframe(
     """
     predictions_df = predictions_df.cbind(ids)
     predictions_df = predictions_df.as_data_frame()
-    predictions_df.rename(columns={'predict': 'prediction'}, inplace=True)
+    predictions_df.rename(columns={"predict": "prediction"}, inplace=True)
     return predictions_df
 
 
 def run_batch_predictions(
-        test_dir=paths.TEST_DIR,
-        predictor_dir=paths.PREDICTOR_DIR_PATH,
-        predictions_file_path=paths.PREDICTIONS_FILE_PATH,
-        saved_schema_dir=paths.SAVED_SCHEMA_DIR_PATH,
+    test_dir=paths.TEST_DIR,
+    predictor_dir=paths.PREDICTOR_DIR_PATH,
+    predictions_file_path=paths.PREDICTIONS_FILE_PATH,
+    saved_schema_dir=paths.SAVED_SCHEMA_DIR_PATH,
 ) -> None:
     """
     Run batch predictions on test data, save the predicted probabilities to a CSV file.

@@ -10,10 +10,10 @@ import pandas as pd
 from config import paths
 from data_models.data_validator import validate_data
 from logger import get_logger, log_error
+from predict import create_predictions_dataframe
 from Regressor import load_predictor_model, predict_with_model
 from schema.data_schema import load_saved_schema
 from utils import read_json_as_dict
-from predict import create_predictions_dataframe
 
 logger = get_logger(task_name="serve")
 
@@ -100,7 +100,9 @@ async def transform_req_data_and_make_predictions(
         model_resources.predictor_model,
         data,
     )
-    predictions_df = create_predictions_dataframe(predictions_df=predictions_df, ids=ids)
+    predictions_df = create_predictions_dataframe(
+        predictions_df=predictions_df, ids=ids
+    )
     logger.info("Converting predictions dataframe into response dictionary...")
     predictions_response = create_predictions_response(
         predictions_df,

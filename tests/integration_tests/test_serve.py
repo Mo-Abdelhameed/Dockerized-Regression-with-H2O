@@ -32,7 +32,7 @@ def test_infer_endpoint_integration(
     # assertions
     assert set(response_data.keys()) == set(response.json().keys())
     assert (
-        response_data["predictions"][0]["sampleId"]
+        str(response_data["predictions"][0]["sampleId"])
         == sample_response_data["predictions"][0]["sampleId"]
     )
     assert "prediction" in response_data["predictions"][0]

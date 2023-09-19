@@ -1,13 +1,10 @@
 import os
+
 import h2o
 import pytest
 from h2o.model import ModelBase
 
-from src.Regressor import (
-    Regressor,
-    load_predictor_model,
-    save_predictor_model,
-)
+from src.Regressor import Regressor, load_predictor_model, save_predictor_model
 
 h2o.init()
 
