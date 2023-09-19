@@ -188,6 +188,10 @@ pip install -r requirements/requirements_test.txt
 pip install -r requirements/requirements_quality.txt
 ```
 
+## LICENSE
+
+This project is provided under the MIT License. Please see the [LICENSE](LICENSE) file for more information.
+
 ## Contact Information
 
 Repository created by the help of Ready Tensor, Inc. (https://www.readytensor.ai/)
