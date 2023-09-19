@@ -40,6 +40,7 @@ def run_training(
         x_train = h2o.H2OFrame(read_csv_in_directory(train_dir))
 
         for cat_columns in data_schema.categorical_features:
+            x_train[cat_columns] = x_train[cat_columns].ascharacter()
             x_train[cat_columns] = x_train[cat_columns].asfactor()
 
         regressor = Regressor(x_train, data_schema)

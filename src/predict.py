@@ -54,6 +54,7 @@ def run_batch_predictions(
     ids = x_test[data_schema.id]
 
     for cat_columns in data_schema.categorical_features:
+        x_test[cat_columns] = x_test[cat_columns].ascharacter()
         x_test[cat_columns] = x_test[cat_columns].asfactor()
 
     model = Regressor.load(predictor_dir)
