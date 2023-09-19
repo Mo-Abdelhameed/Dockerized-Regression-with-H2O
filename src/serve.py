@@ -75,6 +75,7 @@ def create_app(model_resources):
         """
         request_id = generate_unique_request_id()
         try:
+
             logger.info(f"Responding to inference request. Request id: {request_id}")
             logger.info("Starting predictions...")
             data = pd.DataFrame.from_records(request.dict()["instances"])

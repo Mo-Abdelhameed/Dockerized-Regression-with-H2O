@@ -4,6 +4,7 @@ This script contains utility functions/classes that are used in serve.py
 import uuid
 from typing import Any, Dict, Tuple
 
+import h2o
 import pandas as pd
 
 from config import paths
@@ -12,6 +13,7 @@ from logger import get_logger, log_error
 from Regressor import load_predictor_model, predict_with_model
 from schema.data_schema import load_saved_schema
 from utils import read_json_as_dict
+from predict import create_predictions_dataframe
 
 logger = get_logger(task_name="serve")
 
@@ -44,6 +46,7 @@ def get_model_resources(
         Loaded ModelResources object
     """
     try:
+        h2o.init()
         model_resources = ModelResources(
             saved_schema_dir_path,
             model_config_file_path,
@@ -90,19 +93,15 @@ async def transform_req_data_and_make_predictions(
     # validate the data
     logger.info("Validating data...")
     validate_data(data=data, data_schema=model_resources.data_schema, is_train=False)
+    data = h2o.H2OFrame(data)
+    ids = data[model_resources.data_schema.id]
 
     logger.info("Making predictions...")
     predictions_df = predict_with_model(
         model_resources.predictor_model,
         data,
-    )[[model_resources.data_schema.id, "prediction_label"]]
-    predictions_df.rename(
-        columns={
-            "prediction_label": model_resources.model_config["prediction_field_name"]
-        },
-        inplace=True,
     )
-
+    predictions_df = create_predictions_dataframe(predictions_df=predictions_df, ids=ids)
     logger.info("Converting predictions dataframe into response dictionary...")
     predictions_response = create_predictions_response(
         predictions_df,
@@ -110,6 +109,7 @@ async def transform_req_data_and_make_predictions(
         request_id,
         model_resources.model_config["prediction_field_name"],
     )
+    data = data.as_data_frame()
     return data, predictions_response
 
 
