@@ -5,3 +5,4 @@ fastapi==0.100.1
 uvicorn==0.23.2
 pydantic==1.10.2
 h2o==3.42.0.2
+psutil==5.9.8
